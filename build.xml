@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="LEDProjectSSGmbH" basedir=".">
+    <description>Builds, tests, and runs the project LEDProjectV1.</description>
+   	<property name="TEAMNAME" value="Software_Sandwich" /> 
+		
+	<path id="classpath">
+        <fileset dir="lib" includes="**/*.jar"/>
+    </path>
+    
+    <target name="compile">
+        <mkdir dir="build" />
+        <mkdir dir="build/classes" />
+    	<mkdir dir="dist" />
+        <javac srcdir="src" destdir="build/classes" classpathref="classpath" />
+    </target>
+
+    <target name="clean">
+        <delete dir="build" />
+    	<delete dir="dist" />
+    </target>
+        
+    <target name="package" depends="compile">
+    	<jar destfile="dist/app_${TEAMNAME}_${fn:current-time()}.jar">
+    		<fileset dir="build/classes"/>
+    		<zipgroupfileset dir="lib" includes="pi4j-core.jar" />
+    	</jar>
+    </target>
+	
+	<target name="main" depends="clean, compile, package">
+	</target>
+	
+	<target name="upload">
+		<scp file="dist/app_${TEAMNAME}_${TIMESTAMP}.jar" trust="true" todir="pi:fhnw_mas_swe@192.168.1.123:/tmp"/>
+	</target>
+
+</project>
