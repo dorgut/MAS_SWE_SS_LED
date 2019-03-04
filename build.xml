@@ -20,7 +20,8 @@
     </target>
         
     <target name="package" depends="compile">
-    	<jar destfile="dist/app_${TEAMNAME}_${fn:current-time()}.jar">
+    	<tstamp/>
+    	<jar destfile="dist/app_${TEAMNAME}_${DSTAMP}_${TSTAMP}.jar">
     		<fileset dir="build/classes"/>
     		<zipgroupfileset dir="lib" includes="pi4j-core.jar" />
     	</jar>
@@ -30,7 +31,7 @@
 	</target>
 	
 	<target name="upload">
-		<scp file="dist/app_${TEAMNAME}_${TIMESTAMP}.jar" trust="true" todir="pi:fhnw_mas_swe@192.168.1.123:/tmp"/>
+		<scp file="dist/app_${TEAMNAME}_${DSTAMP}_${TSTAMP}.jar" trust="true" todir="pi:fhnw_mas_swe@192.168.1.123:/tmp"/>
 	</target>
 
 </project>
