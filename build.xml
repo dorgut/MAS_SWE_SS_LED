@@ -30,7 +30,7 @@
 	<target name="main" depends="clean, compile, package">
 	</target>
 	
-	<target name="upload">
+	<target name="upload" depends="package">
 		<scp file="dist/app_${TEAMNAME}_${DSTAMP}_${TSTAMP}.jar" trust="true" todir="pi:fhnw_mas_swe@192.168.1.123:/tmp"/>
 	</target>
 
